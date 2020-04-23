@@ -1,0 +1,59 @@
+Shallow CNN Model
+
+-mimics FBCSP (Filter Bank Common Spatial Patterns)
+
+-specifically tailored to decode band power features
+-the first two layers perform a temporal convolution and a spatial filter
+	-analogous to the bandpass and CSP spatial filter steps in FBCSP
+-temporal convolution had a larger kernel size (25)
+	-allowed larger range of transformations in this layer
+-next layers: squaring nonlinearity, mean pooling layer, logarithmic activation function
+	-analogous to the trial log-variance computation in FBCSP
+-embeds all the computational steps in a single network
+	-all steps can be optimized jointly
+-several pooling regions within one trial
+	-can learn a temporal structure of the band power changes within the trial
+
+
+	FBCSP
+-convolution measures shared energy between filter and time series
+-fit filter to each spatial pattern a number of time and computing average, make a bank of. These and convolve them
+
+Initial Parameters in Source Code:
+in_chans = 8
+n_classes = 2
+input_time_length=None,
+n_filters_time=40,
+filter_time_length=25,
+n_filters_spat=40,
+pool_time_length=75,
+pool_time_stride=15,
+final_conv_length=30,
+conv_nonlin=square,
+pool_mode="mean",
+pool_nonlin=safe_log,
+split_first_layer=True,
+batch_norm=True,
+batch_norm_alpha=0.1,
+drop_prob=0.5
+
+
+Activation Function: Exponential Linear Unit (ELU)
+
+Pooling Mode: Mean
+
+Optimizer:
+	-AdamW (Adaptive Moment Estimation)
+		-computes adaptive learning rates for each parameter
+		-automatically tunes parameters
+		-turn on weight_decay(?), can use in tandem w/ dropout
+		-get learning rates used after training
+
+Layers:
+	-Convolution (Temporal)
+	-Spatial Filter
+	-Pooling (Mean)
+	-Regularization (Dropout)
+	-Linear Classification (Dense Layer + Softmax)
+
+

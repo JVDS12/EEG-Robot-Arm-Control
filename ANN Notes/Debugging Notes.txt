@@ -1,0 +1,16 @@
+EEG Issues
+
+OpenBCI GUI: - freezes randomly
+	     - major spikes across all channels randomly
+
+CNN: - line 180 ERROR index out of range
+	- receiving msg from gui to send feedback before getting newest data from stream
+	- added time delay before sending msg from gui2cnn
+	- works for smaller experiments (10-100 trials) but breaks on longer (260 trials)
+     - trains quickly, tweak hyperparameters, not better than chance yet
+
+
+- temporarily convert bandpass to highpass (or make highcut arbitrarily high, 1 billion)
+- try shake vs. no shake trials (do two trials and plot both of them)
+- make a faraday cage (wrap headset in aluminum foil, put box wrapped in aluminum foil on headset over headset)
+- 10-20 trials, see if CNN can classify

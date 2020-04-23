@@ -1,0 +1,126 @@
+Neural Network Notes
+
+Summation Function:
+	-weight + input..... + bias
+
+Activation Function:
+	-non-linear "squashing" function
+	-takes output from summation function to map onto restricted domain (usually an output from 0-1)
+	-various types depending on situation (ReLU, Tanh, sigmoid, ELU, etc.)
+
+Loss/Cost/Objective Function:
+	-reduce error in prediction
+	-error s difference between actual output and predicted output
+	-different functions for different types of tasks (i.e. regression, classification)
+
+Error:
+	-a function of internal parameters of model (i.e weights and bias)
+	-for accurate predictions, need to minimize the calculated error
+
+Backpropagation:
+	-current error is typically propagated backwards to a previous layer
+	-then used to modify the weights and bias in such a way that the error is minimized
+
+Optimization Function:
+	-modifies weights in backpropagation
+	-calculate the gradient (i.e. the partial derivative of loss function with respect to weights)
+	-weights are modified in the opposite direction of the calculated gradient
+	-this cycle is repeated until we reach the minima of loss function
+
+Gradient Descent:
+	-iterative method which is used to find the values of the parameters of a function that minimizes the cost function as much as possible
+	-gradient is the slope of a function; the degree of change of a parameter with the amount of change in another parameter
+	-mathematically it can be described as the partial derivatives of a set of parameters with respect to its inputs
+	-the more the gradient, the steeper the slope
+	-convex function
+
+Stochastic Gradient Descent (SGD):
+	-cosine annealing of the learning rate
+	-reduces computational burden on network
+	-gradient calculated for each iteration from a batch of randomly selected samples (usually just one sample per iteration)
+	-nosier path to minima than gradient descent
+		-higher number of training iterations but less computationally expensive (faster overall)
+	-only requirement: unbiased estimator of gradient
+	-maintains a single learning rate for all weight updates
+		-learning rate doesn't change during training
+
+Dropout:
+	-stochastic regularization technique
+	-temporarily remove unit/node from network (along w/ incoming/outgoing connections)
+	-units dropped at random w/ probability p (p=.5 usually close to optimal)
+	-prevents overfitting
+	-provides a way of approximately combining exponentially many different neural network architectures efficiently
+	-each hidden unit in a neural network trained with dropout must learn to work with a randomly chosen sample of other units
+	-makes each hidden unit more robust and drive it towards creating useful features on its own without relying on other hidden units to correct its mistakes
+	-resultant "thinned" network
+
+Learning Rate:
+	-determines how much the weights should change (opposite the gradient) each iteration
+	-too small can take a very long time to train, doesn't factor in new information enough
+	-too big can overshoot gradient, factors in new information too much (could diverge or never converge)
+	-Robbins-Monrow Conditions: learning rate needs to shrink at a certain rate, fast but not too fast
+
+L2 Regularization/Weight Decay:
+	-adds a regularization term to the cost function
+	-sum of the squares of all of the weights in the network
+	-makes network prefer to learn small weights
+	-large weights allowed only if they significantly improve the initial cost function
+	-a way of compromising between finding small weights and minimizing the original cost function
+
+Cross-Validation Training:
+	-a resampling procedure used to evaluate machine learning models on a limited data sample
+	-use a limited sample in order to estimate how the model is expected to perform in general when used to make predictions on data not used during the training of the model
+	-results in a less biased or less optimistic estimate of the model skill than other methods (i.e. train/test split)
+	-reduces performance dependence on separation of training and reduces variance in performance metrics
+	-K-Fold:
+		-performing K rounds of training-validation-testing on, different, non-overlapping, equally-proportioned Training, Validation and Testing sets
+
+Data Augmentation:
+	-adding synthetic data points by applying transformations to the training data
+	-exposes the model to additional variations without the cost of collecting and annotating more data
+	-can have the effect of reducing overfitting and improving the model's ability to generalize
+
+Flipping:
+	-an object should be equally recognizable as its mirror image
+	-horizontal flipping is the type of flipping often used
+
+Cropping:
+	-reduce the contribution of the background in the CNNs decision
+	-random cropping can act as a regularizer, base classification on the presence of parts of the object
+	-instead of focusing everything on a very distinct feature that may not always be present
+
+Convolutional Layer:
+	-can learn high-order/abstract features in an image
+	-summarize features of an image in a feature map
+	-changes to these features will result in a change in the feature map, affecting performance
+
+Pooling:
+	-down sampling: lower resolution version of input signal is created that contains the large/important structural elements
+	-removes fine detail that may not be as useful to the task and can greatly influence feature map
+	-summarized version of features detected in the input
+	-pooling layer usually comes after convolutional layer and non-linearity (activation function) layer
+	-filters feature map, reduces size of feature map by a factor of 2
+	-Average Pooling: calculate the average value for each patch on the feature map
+	-Max Pooling: calculate the maximum value for each patch of the feature map
+	-helps to make the representation become approximately invariant to small translations of the input
+		-Invariance to translation: means that if input is translated by a small amount, the values of most of the pooled outputs do not change
+	
+Optimizers:
+	-Adam (Adaptive Moment Estimation)
+		-extension to stochastic gradient descent
+		-computes adaptive learning rates for each parameter
+		-automatically tunes parameters
+		-implements exponential moving average of the gradients to scale the learning rate
+		-keeps an exponentially decaying average of past gradients
+		-combines advantages of AdaGrad & RMSProp
+	-AdaGrad (Adaptive Gradient Algotrithm)
+		-maintains a per-parameter learning rate
+		-improves performance on problems w/ sparse gradients (i.e. natural language processing/computer vision problems)
+	-RMSProp (Root Mean Square Propagation)
+		-maintains per-parameter learning rates
+		-adapted based on the average of recent magnitudes of the gradients for the weights (i.e. how quickly it is changing)
+		-does well on online and non-stationary (i.e. noisy) problems
+
+Parameter Optimization Methods:
+	-Grid Search: ith/jth term in 2D grid (i rows by j columns)
+

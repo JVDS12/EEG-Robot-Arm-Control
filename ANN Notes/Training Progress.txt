@@ -1,0 +1,64 @@
+Training Progress
+
+- implemented 'Faraday Cage' by covering headset in aluminum foil to reduce noise
+  from room/electronic devices present
+- noticable difference on OpenBCI GUI, far less random spikes for  brief or
+  prolonged periods of time
+
+Number of Trials = Initial Train + Additional Train w/ Feedback + Test w/ Feedback
+
+CNN Parameters (1): pct_train = 75              # percentage of trials to use for training   
+    		    in_chans = 8                # number of EEG input channels
+   		    n_classes = 2               # number of possible classes
+    		    input_time_length = 400     # number of samples per trial
+   		    lr = 0.0625*0.1             # learning rate (AdamW optimizer)
+       		    weight_decay = 0.1          # weight decay (AdamW optimizer)
+    		    epochs = 20                 # number of epochs to train
+    		    batch_size = 5		# size of each training batch
+
+Shake vs. Dead: 100% Accuracy
+
+Motor Imagery:
+	(100 + 20 + 20) - Testing Accuracy: 50%
+	(no data)	- Initial Train Time (s): 18.82
+
+	(200 + 20 + 20) - Testing Accuracy: 50%
+	(no data)	- Initial Train Time (s): 36.95
+
+	(600 + 20 + 20) - Testing Accuracy: 50%
+	(R1, no data)   - Initial Train Time (s): 112.24
+
+	(600 + 20 + 20) - Testing Accuracy: 50%
+	(R2, w/ data)	- Initial Train Time (s): 107.69
+			- Params: lr=0.01, wd=0, ep=25, bs=20, pt=50, itl=350, fcl=16
+
+			- Testing Accuracy: 64%
+			- Initial Train Time (s): 49.22
+			- Params: lr=0.01, wd=0, ep=75, bs=20, pt=90, itl=425, fcl=19
+
+Jaw Clench (left/right):
+	(100 + 20 + 20) - Testing Accuracy: 90%
+			- Initial Train Time (s): 18.67
+			- Params: lr=0.01, wd=0, ep=20, bs=20, pt=50, itl=350, fcl=16
+
+Movement (left/right):
+	(200 + 20 + 20) - Testing Accuracy: 50%
+			- Initial Train Time (s): 35.65
+			- picked 'right' every time for training w/ feedback
+			- picked 'left' every time for testing w/ feedback
+
+	(400 + 20 + 20) - Testing Accuracy: 95%
+			- Initial Train Time (s): 14.41
+			- Params: lr=0.01, wd=0, ep=25, bs=20, pt=50, itl=350, fcl=16
+
+
+
+
+Initial Parameters: pct_train = 75              # percentage of trials to use for training   
+    		    in_chans = 8                # number of EEG input channels
+   		    n_classes = 2               # number of possible classes
+    		    input_time_length = 400     # number of samples per trial
+   		    lr = 0.0625*0.1             # learning rate (AdamW optimizer)
+       		    weight_decay = 0.1          # weight decay (AdamW optimizer)
+    		    epochs = 20                 # number of epochs to train
+    		    batch_size = 5		# size of each training batch

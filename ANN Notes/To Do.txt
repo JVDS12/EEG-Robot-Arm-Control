@@ -1,0 +1,18 @@
+To do:
+CNN:
+- visualize training/test accuracy vs. epoch
+- visualize weights vs. training epoch
+- lump weights together in vector, spaghetti plot
+- look at weights at the end
+- add regularization (dropout, L2), dropout module in pytorch
+- try with different learning rates
+- research learning rate/dropping out/training NN
+- cross-validation training (folds, helps improve generalization)
+
+Signal Processing:
+- reduce number of input parameters
+- look at energy for each channel over 5s trial
+
+
+
+eeg_binary_cnn.py:

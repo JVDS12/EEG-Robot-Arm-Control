@@ -1,0 +1,51 @@
+EXPERIMENTAL PARADIGM
+
+Trial Setup
+- trial direction/order randomized
+- Initial Training
+	- 2s of blank screen (black)
+	- 2s of fixation cross (green)
+	- Xs of cue/direction arrow (red)
+		- X in 2s increments depending on desired trial length
+
+- Additional Training w/ Feedback
+	- 2s of blank screen (black)
+	- 2s of fixation cross (green)
+	- Xs of cue/direction arrow (red)
+		- X same duration set in initial training
+	- 10s of feedback arrow (blue)
+		- 2s per feedback based on previous 2s chunk of EEG
+		- CNN outputs preditcion (arrow direction) & confidence (arrow length)
+
+- Testing w/ Feedback
+	- 2s of blank screen (black)
+	- 2s of fixation cross (green)
+	- Xs of cue/direction arrow (red)
+		- X same duration set in initial training
+	- 8s of feedback arrow (blue)
+		- 2s per feedback based on previous 2s chunk of EEG
+		- CNN outputs preditcion (arrow direction) & confidence (arrow length)
+		- prediction on last 2s chunk used as class label for trial
+		- testing accuracy calculated using test trial predictions
+		  and actual classes
+
+Stream EEG
+- raw data sampled at 250Hz
+- collected in 2s chunks (500 samples)
+	- collection starts 500ms before cue presentation
+	- ends after trial completed (Xs)
+- each 2s chunk is assigned class label, filtered, and sent to CNN script
+	- 60Hz notch filter
+	- butterworth bandpass filter (filtfilt- front/back) 0.5-100Hz
+
+CNN
+- data collected and stored
+- once initial trials completed, CNN trained
+- after completion, additional training trials initiated
+	- each trial is fed into CNN and an output is predicted
+	- prediction turned into visual feedback (arrow direction) with 
+	  confidence (arrow length)
+- after additional training trials are finished, CNN trained again to
+  incorporate new data
+- testing trials are initialized w/ finalized CNN
+	- visual feedback given for 2s chunks of EEG data

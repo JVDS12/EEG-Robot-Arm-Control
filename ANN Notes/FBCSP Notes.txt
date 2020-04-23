@@ -1,0 +1,41 @@
+Filter Bank Common Spatial Pattern (FBCSP)
+
+- addresses the problem of selecting an appropriate operational frequency band for extracting discriminating CSP features
+
+- FBCSP employs a feature selection algorithm to select discriminative CSP features from a bank of
+  multiple bandpass filters and spatial filters, and a classification algorithm to classify the selected features
+
+- capable of learning subject-specific patterns from the high-dimensional EEG measurements without operator intervention
+
+- Each pair of bandpass and spatial filter yields CSP features that are specific
+  to the frequency range of the bandpass filter
+
+- CSP calculates spatial filters for detecting ERD & ERS (Event Related De/Synchronization)
+	- ERD/S: attenuation or increase of localized neural rhythmic activity (results from MI tasks)
+	- compute features whose variances are optimal for discriminating two classes of EEG measurements
+
+- Highly generalizable as any feature selection and classification algorithms from the machine learning
+  and computational intelligence literature can be employed
+
+4 Main Stages of FBCSP:
+	1. Frequency filtering
+		- EEG is bandpass-filtered into multiple frequency bands using
+		  zero-phase Chebyshev Type II Infinite Impulse Response (IIR) filters
+		- Zero-phase filtering used to overcome non-linear phase shift caused by IIR filter
+		- IIR filter arises from linear time-invarient systems,
+		  impulse point does NOT become exactly zero past a certain point
+	2. Spatial filtering
+		- CSP features are extracted from each band
+	3. Feature selection
+		- Feature selection algorithm is used to automatically select
+		  discriminative paris of frequency bands & corresponding CSP features
+	4. Classification
+		- Classification algorithm is used to classify CSP features
+
+2 Main Feature Extraction Approaches:
+	1. Wrapper
+		- features are selected using the classifier
+		- typically yields better performance
+		- increased computational effort
+	2. Filter
+		- features are selected independent from the classifier
